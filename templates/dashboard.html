@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard | TaskMaster{% endblock %}
+
+{% block content %}
+<div class="signup-login">
+    <div>
+        <h1>Hello {{ user.username }}</h1>
+
+        <div class="signup-box scr">
+            <div class="heads">
+                <div class="heading">Get Things Done?</div>
+                <a href="{% url 'signout' %}" class="sign">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" name="title" class="inp" required placeholder="What is the task today?">
+                <input class="submit-button" type="submit" value="Add Task">
+            </form>
+
+            {% for todo in res %}
+            <div class="Todo {% if todo.status %}todo-green{% else %}todo-red{% endif %}">
+                <p class="{% if todo.status %}completed{% endif %}">
+                    {{ todo.title }}
+                </p>
+                <div>
+                    <a href="{% url 'edit_task' todo.id %}"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a href="{% url 'delete_task' todo.id %}"><i class="fa-solid fa-trash"></i></a>
+                </div>
+            </div>
+            {% empty %}
+                <p>No tasks yet!</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

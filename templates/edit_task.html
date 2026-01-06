@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Task{% endblock %}
+
+{% block content %}
+<div class="signup-login">
+    <div class="signup-box scr">
+        <div class="heading">Update Task</div>
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="title" class="inp" value="{{ obj.title }}" required>
+            <input type="hidden" name="id" value="{{ obj.id }}">
+            <input class="submit-button" type="submit" value="Update Task">
+        </form>
+    </div>
+</div>
+{% endblock %}
